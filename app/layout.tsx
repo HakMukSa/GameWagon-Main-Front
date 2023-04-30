@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>GameWagon</title>
+        <title>게임왜건</title>
       </head>
       <body className={inter.className}>
         <Nav />

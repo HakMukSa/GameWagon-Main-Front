@@ -33,15 +33,15 @@ const Login = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-          Sign in to your account
+          계정에 로그인하기
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{" "}
+          회원이 아니신가요?{" "}
           <a
             href="/signup"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
-            create a new account
+            회원가입하러가기
           </a>
         </p>
       </div>
