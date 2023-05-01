@@ -34,13 +34,10 @@ export default function SignupPage() {
   const [mainboard, setMainboard] = useState("");
   const [cpu, setCpu] = useState("");
   const [gpu, setGpu] = useState("");
-  const [ram, setRam] = useState("");
+  // const [ram, setRam] = useState("");
 
   // 선호하는 플랫폼
   const [platform, setPlatform] = useState([""]);
-
-  // 선호하는 게임 장르
-  const [genre, setGenre] = useState([""]);
 
   const handleEmailChange = (event: BaseSyntheticEvent) => {
     setEmail(event.target.value);
@@ -76,7 +73,8 @@ export default function SignupPage() {
                 htmlFor="id"
                 className="block text-sm font-medium text-white"
               >
-                아이디 <span className="text-[#ff0000]">*</span>
+                아이디 <span className="text-[#ff0000]">*</span>{" "}
+                <span>(영어 대소문자, 숫자 포함 )</span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
@@ -109,22 +107,21 @@ export default function SignupPage() {
                   required
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="appearance-none block w-[89%] px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                 />
 
                 {/* 이메일에 인증 코드 전송 */}
-                <button className="w-[11%] justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-2 dark:focus:ring-offset-2 dark:focus:ring-indigo-500">
+                {/* <button className="w-[11%] justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-2 dark:focus:ring-offset-2 dark:focus:ring-indigo-500">
                   &gt;
-                </button>
+                </button> */}
               </div>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="text"
                 className="block text-sm font-medium text-white"
               >
                 인증 코드 <span className="text-[#ff0000]">*</span>
-                {/*필수사항*/}
               </label>
               <div className="mt-1 flex">
                 <input
@@ -136,13 +133,11 @@ export default function SignupPage() {
                   onChange={(event) => setVerifyCode(event.target.value)}
                   className="appearance-none block w-[89%] px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                 />
-
-                {/* 인증코드 인증 */}
                 <button className="w-[11%] justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-2 dark:focus:ring-offset-2 dark:focus:ring-indigo-500">
                   ✓
                 </button>
               </div>
-            </div>
+            </div> */}
             <div>
               <label
                 htmlFor="nickname"
@@ -265,7 +260,7 @@ export default function SignupPage() {
                 />
               </div>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="text"
                 className="block text-sm font-medium text-white"
@@ -283,35 +278,35 @@ export default function SignupPage() {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                 />
               </div>
-            </div>
+            </div> */}
             <div>
               모니터 해상도
               <select className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline text-black">
                 <option value=""></option>
                 <option value="FHD">FHD (1920 x 1080)</option>
-                <option value="FHD+">FHD+ (2460 x 1080)</option>
+                <option value="FHD_PLUS">FHD+ (2460 x 1080)</option>
                 <option value="WFHD">WFHD (2560 x 1080)</option>
                 <option value="DFHD">DFHD (3840 x 1080)</option>
                 <option value="WUXGA">WUXGA (1920 X 1200)</option>
                 <option value="QHD">QHD (2560 x 1440)</option>
-                <option value="QHD+">QHD+ (3200 x 1440)</option>
+                <option value="QHD_PLUS">QHD+ (3200 x 1440)</option>
                 <option value="WQHD">WQHD (3440 X 1440)</option>
                 <option value="DQHD">DQHD (5120 X 1440)</option>
                 <option value="WQXGA">WQXGA (2560 x 1600)</option>
-                <option value="WQHD+">WQHD+ (3840 x 1600)</option>
+                <option value="WQHD_PLUS">WQHD+ (3840 x 1600)</option>
                 <option value="4K">4K UHD / UHD (3840 x 2160)</option>
-                <option value="4K DCI">4K DCI (4096 x 2160)</option>
+                <option value="4K_DCI">4K DCI (4096 x 2160)</option>
                 <option value="WUHD">WUHD / UHD+ (5120 x 2160)</option>
                 <option value="8K">8K UHD / FUHD (7680 x 4320)</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
+                {/* <svg
                   className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
                   <path d="M10 12l-5-5 1.41-1.41L10 9.17l3.59-3.58L15 7l-5 5z" />
-                </svg>
+                </svg> */}
               </div>
             </div>
 
