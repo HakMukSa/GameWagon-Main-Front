@@ -1,5 +1,4 @@
 "use client";
-import Head from "next/head";
 import { useState } from "react";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
