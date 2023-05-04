@@ -62,7 +62,7 @@ export default function SignupPage() {
                 className="block text-sm font-medium text-white"
               >
                 아이디 <span className="text-[#ff0000]">*</span>{" "}
-                <span>(영어 대소문자, 숫자 포함 )</span>
+                <span>(5글자 이상, 최대 15자 이하)</span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
@@ -104,7 +104,8 @@ export default function SignupPage() {
                 htmlFor="nickname"
                 className="block text-sm font-medium text-white"
               >
-                닉네임 <span className="text-[#ff0000]">*</span>
+                닉네임 <span className="text-[#ff0000]">*</span>{" "}
+                <span>(2글자 이상, 10글자 이하)</span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
@@ -125,7 +126,12 @@ export default function SignupPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-white"
               >
-                비밀번호 <span className="text-[#ff0000]">*</span>
+                비밀번호 <span className="text-[#ff0000]">*</span> <br />
+                <span>
+                  (영문 대/소문자, 숫자, 특수문자를 각 1개 이상 포함
+                  <br />
+                  6글자 이상, 20글자 이하)
+                </span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
