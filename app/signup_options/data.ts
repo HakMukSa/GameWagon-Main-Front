@@ -15,6 +15,8 @@ export interface MonitorOptions {
   readonly value: string; // 데이터
 }
 
+// Todo: 메인보드 와꾸
+
 export const cpu: readonly Options[] = [
   { company: "Ryzen", generation: 5, name: "5600", option: "X" },
 ];

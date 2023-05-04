@@ -1,6 +1,6 @@
 "use client";
-import { ReactElement, useState } from "react";
-import Block from "./platform_block";
+import { useState } from "react";
+import Block from "./platform_block"; // for platform
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
