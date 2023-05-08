@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { login } from "@/libs/user/login";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
@@ -23,9 +24,14 @@ const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event: BaseSyntheticEvent) => {
+  const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
-    // TODO: 로그인 처리 로직
+    try {
+      const response = await login(id, password);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

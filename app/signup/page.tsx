@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { signup } from "@/libs/user/signup";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
@@ -26,23 +27,32 @@ export default function SignupPage() {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [allowMarketing, setAllowMarketing] = useState(true);
 
-  const handleEmailChange = (event: BaseSyntheticEvent) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: BaseSyntheticEvent) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (event: BaseSyntheticEvent) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: BaseSyntheticEvent) => {
+  const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
-
-    // TODO: 회원가입 로직 구현
+    try {
+      const response = await signup(
+        id,
+        nickname,
+        email,
+        password,
+        confirmPassword,
+        allowMarketing
+      );
+      console.log(response);
+    } catch (error: any) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
   };
 
   return (
