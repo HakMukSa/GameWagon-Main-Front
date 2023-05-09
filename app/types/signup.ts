@@ -3,6 +3,6 @@ export type Signup = {
   nickname: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmedPassword: string;
   allowMarketing: boolean;
 }; // 회원가입시 필요 정보

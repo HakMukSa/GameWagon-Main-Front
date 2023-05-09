@@ -32,21 +32,3 @@ export const monitor: readonly MonitorOptions[] = [
     value: "FHD",
   },
 ];
-
-/*
-                <option value="FHD">FHD (1920 x 1080)</option>
-                <option value="FHD_PLUS">FHD+ (2460 x 1080)</option>
-                <option value="WFHD">WFHD (2560 x 1080)</option>
-                <option value="DFHD">DFHD (3840 x 1080)</option>
-                <option value="WUXGA">WUXGA (1920 X 1200)</option>
-                <option value="QHD">QHD (2560 x 1440)</option>
-                <option value="QHD_PLUS">QHD+ (3200 x 1440)</option>
-                <option value="WQHD">WQHD (3440 X 1440)</option>
-                <option value="DQHD">DQHD (5120 X 1440)</option>
-                <option value="WQXGA">WQXGA (2560 x 1600)</option>
-                <option value="WQHD_PLUS">WQHD+ (3840 x 1600)</option>
-                <option value="4K">4K UHD / UHD (3840 x 2160)</option>
-                <option value="4K_DCI">4K DCI (4096 x 2160)</option>
-                <option value="WUHD">WUHD / UHD+ (5120 x 2160)</option>
-                <option value="8K">8K UHD / FUHD (7680 x 4320)</option>
-*/

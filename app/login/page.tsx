@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { login } from "@/libs/user/login";
+import { LoginProcess } from "@/api/auth/login";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
@@ -27,7 +27,7 @@ const Login = () => {
   const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
-      const response = await login(id, password);
+      const response = await LoginProcess(id, password);
       console.log(response);
     } catch (error) {
       console.error(error);

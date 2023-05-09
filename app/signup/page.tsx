@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { signup } from "@/libs/user/signup";
+// import { signup } from "@/libs/user/signup";
+import { SignupProcess } from "@/api/auth/signup";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
@@ -28,11 +29,10 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [allowMarketing, setAllowMarketing] = useState(true);
-
   const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
-      const response = await signup(
+      const response = await SignupProcess(
         id,
         nickname,
         email,
