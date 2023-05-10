@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-// import { signup } from "@/libs/user/signup";
 import { SignupProcess } from "@/api/auth/signup";
+import { useRouter } from "next/navigation";
 
 type BaseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
@@ -22,7 +22,7 @@ type BaseSyntheticEvent<E = object, C = any, T = any> = {
 }; // 퍼왔음, 수정해야됨
 
 export default function SignupPage() {
-  // 필수사항
+  const router = useRouter();
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -41,6 +41,7 @@ export default function SignupPage() {
         allowMarketing
       );
       console.log(response);
+      router.push("/login");
     } catch (error: any) {
       if (error.response) {
         console.log(error.response.data);
@@ -71,8 +72,7 @@ export default function SignupPage() {
                 htmlFor="id"
                 className="block text-sm font-medium text-white"
               >
-                아이디 <span className="text-[#ff0000]">*</span>{" "}
-                <span>(5글자 이상, 최대 15자 이하)</span>
+                아이디 <span>(5글자 이상, 최대 15자 이하)</span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
@@ -93,7 +93,7 @@ export default function SignupPage() {
                 htmlFor="email"
                 className="block text-sm font-medium text-white"
               >
-                이메일 <span className="text-[#ff0000]">*</span>
+                이메일
                 {/*필수사항*/}
               </label>
               <div className="mt-1 flex">
@@ -126,8 +126,7 @@ export default function SignupPage() {
                 htmlFor="nickname"
                 className="block text-sm font-medium text-white"
               >
-                닉네임 <span className="text-[#ff0000]">*</span>{" "}
-                <span>(2글자 이상, 10글자 이하)</span>
+                닉네임 <span>(2글자 이상, 10글자 이하)</span>
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
@@ -148,7 +147,7 @@ export default function SignupPage() {
                 htmlFor="password"
                 className="block text-sm font-medium text-white"
               >
-                비밀번호 <span className="text-[#ff0000]">*</span> <br />
+                비밀번호 <br />
                 <span>
                   (영문 대/소문자, 숫자, 특수문자를 각 1개 이상 포함
                   <br />
@@ -174,7 +173,7 @@ export default function SignupPage() {
                 htmlFor="confirm_password"
                 className="block text-sm font-medium text-white"
               >
-                비밀번호 확인 <span className="text-[#ff0000]">*</span>
+                비밀번호 확인
                 {/*필수사항*/}
               </label>
               <div className="mt-1">
