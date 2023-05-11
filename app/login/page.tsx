@@ -4,24 +4,7 @@ import { LoginProcess } from "@/api/auth/login";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-type BaseSyntheticEvent<E = object, C = any, T = any> = {
-  nativeEvent: E;
-  currentTarget: C;
-  target: T;
-  bubbles: boolean;
-  cancelable: boolean;
-  defaultPrevented: boolean;
-  eventPhase: number;
-  isTrusted: boolean;
-  preventDefault(): void;
-  isDefaultPrevented(): boolean;
-  stopPropagation(): void;
-  isPropagationStopped(): boolean;
-  persist(): void;
-  timeStamp: number;
-  type: string;
-}; // 퍼왔음, 수정해야됨
+import { BaseSyntheticEvent } from "@/api/commons/types/async-event";
 
 const Login = () => {
   const router = useRouter();

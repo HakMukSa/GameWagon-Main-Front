@@ -2,24 +2,7 @@
 import { useState } from "react";
 import { SignupProcess } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
-
-type BaseSyntheticEvent<E = object, C = any, T = any> = {
-  nativeEvent: E;
-  currentTarget: C;
-  target: T;
-  bubbles: boolean;
-  cancelable: boolean;
-  defaultPrevented: boolean;
-  eventPhase: number;
-  isTrusted: boolean;
-  preventDefault(): void;
-  isDefaultPrevented(): boolean;
-  stopPropagation(): void;
-  isPropagationStopped(): boolean;
-  persist(): void;
-  timeStamp: number;
-  type: string;
-}; // 퍼왔음, 수정해야됨
+import { BaseSyntheticEvent } from "@/api/commons/types/async-event";
 
 export default function SignupPage() {
   const router = useRouter();
