@@ -1,5 +1,5 @@
-import { Signup } from "@/types/signup";
-import gameWagon from "@/libs/commons/axios";
+import { Signup } from "@/api/commons/types/signup";
+import gameWagon from "@/api/commons/axios";
 
 export const SignupProcess = async (
   userId: string,

@@ -1,5 +1,5 @@
-import gameWagon from "@/libs/commons/axios";
-import { User } from "@/types/user";
+import gameWagon from "@/api/commons/axios";
+import { User } from "@/api/commons/types/user";
 export async function LoginProcess(
   userId: string,
   password: string
