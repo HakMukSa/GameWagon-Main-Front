@@ -15,7 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // 추후에 SEO 고려, next/head 사용
+    /**
+     * @todo 추후에 SEO 고려, next/head 사용
+     */
     <html lang="kr">
       <body className={inter.className}>
         <Nav />
