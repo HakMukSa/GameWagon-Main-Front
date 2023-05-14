@@ -1,11 +1,13 @@
+import Slick from "@/components/Slick";
 export default function Home() {
   return (
     <div className="w-full h-[100%] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-screen mx-auto">
         {/* section 01: 게임 & 하드웨어 정보 광고 배너 */}
         <div id="section 01">
-          <div className="w-[80%] h-[300px] mx-auto border-2 border-pink-500 border-solid">
+          <div className="w-[80%] h-[400px] mx-auto border-2 border-pink-500 border-solid">
             게임 & 하드웨어 정보 광고 배너
+            <Slick />
           </div>
         </div>
 
