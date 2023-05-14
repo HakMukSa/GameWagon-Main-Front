@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseSyntheticEvent } from "@/api/commons/types/async-event";
 
-const Login = () => {
+export default function Login(): JSX.Element {
   const router = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -110,6 +110,4 @@ const Login = () => {
       </div>
     </div>
   );
-};
-
-export default Login;
+}

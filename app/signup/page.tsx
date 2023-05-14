@@ -4,7 +4,7 @@ import { SignupProcess } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/api/commons/types/async-event";
 
-export default function SignupPage() {
+export default function SignupPage(): JSX.Element {
   const router = useRouter();
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
