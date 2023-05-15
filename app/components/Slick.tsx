@@ -1,24 +1,15 @@
 "use client";
 import Image from "next/image";
-const Slider = require("react-slick").default;
+// for Image Slide
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useStore from "@/../store.js"; // image list
+// types
+import { ImageList } from "@/api/commons/types/image-list";
+import { ImageListSetting } from "@/api/commons/types/image-list-setting";
 
-const images = [
-  {
-    src: "/image1.jpg",
-    alt: "Image 1",
-  },
-  {
-    src: "/image2.jpg",
-    alt: "Image 2",
-  },
-  {
-    src: "/image3.jpg",
-    alt: "Image 3",
-  },
-];
-const settings = {
+const settings: ImageListSetting = {
   dots: true,
   infinite: true,
   speed: 500,
@@ -27,10 +18,12 @@ const settings = {
 };
 
 const Slick = () => {
+  const { images } = useStore();
+  console.log(images[0]);
   return (
     <div className="w-full max-w-3xl mx-auto">
       <Slider {...settings}>
-        {images.map((image) => (
+        {images.map((image: ImageList) => (
           <div key={image.src} className="relative h-80">
             <Image
               src={image.src}
