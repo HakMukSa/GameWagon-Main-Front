@@ -1,4 +1,4 @@
-export type BaseSyntheticEvent<E = object, C = any, T = any> = {
+export type baseSyntheticEvent<E = object, C = any, T = any> = {
   nativeEvent: E;
   currentTarget: C;
   target: T;

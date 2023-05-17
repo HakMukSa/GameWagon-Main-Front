@@ -1,6 +1,6 @@
 import gameWagon from "@/api/commons/axios";
-import { User } from "@/api/commons/types/user";
-export async function LoginProcess(
+import { User } from "@/types/commons/user";
+export async function loginRequest(
   userId: string,
   password: string
 ): Promise<User> {

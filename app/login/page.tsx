@@ -1,26 +1,45 @@
 "use client";
 import { useState } from "react";
-import { LoginProcess } from "@/api/auth/login";
+// import { LoginProcess } from "@/api/auth/login";
+import { loginRequest } from "@/api/auth/login";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BaseSyntheticEvent } from "@/api/commons/types/async-event";
+import { baseSyntheticEvent } from "@/types/commons/async-event";
+import { LoginValidationError } from "./error";
 
+/** @todo validation 추가 */
+
+const throwIfEmpty = (e: Error, data?: string) => {
+  //
+  if (!data) {
+    throw e;
+  }
+};
 export default function Login(): JSX.Element {
   const router = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (event: BaseSyntheticEvent) => {
+  const handleSubmit = async (event: baseSyntheticEvent) => {
     event.preventDefault();
     try {
-      const response = await LoginProcess(id, password);
-      console.log(response);
+      // console.log(new LoginValidationError("섹스"));
+      // throwIfEmpty(
+      //   new LoginValidationError("사용자 ID는 필수 항목입니다.//"),
+      //   id
+      // );
+      // throwIfEmpty(
+      //   new LoginValidationError("비밀번호는 필수 항목입니다.//"),
+      //   password
+      // );
+      const response = await loginRequest(id, password);
       router.push("/");
     } catch (error: any) {
-      console.error(error);
-      console.log(error.response.data.messages.userId[0]);
-      toast.error("로그인 실패", {
+      /** @todo error type */
+      const errorMessages = error.response.data.messages;
+      const errorKeys = Object.keys(errorMessages);
+      toast.error(`${errorMessages[errorKeys[0]]}`, {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,

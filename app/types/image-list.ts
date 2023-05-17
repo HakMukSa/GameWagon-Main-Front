@@ -1,4 +1,4 @@
-export type ImageList = {
+export type imageList = {
   src: string;
   alt: string;
 };

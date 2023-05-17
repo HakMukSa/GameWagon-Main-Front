@@ -1,15 +1,15 @@
-import { Signup } from "@/api/commons/types/signup";
+import { signUp } from "@/signup/signup";
 import gameWagon from "@/api/commons/axios";
 
-export const SignupProcess = async (
+export const signupRequest = async (
   userId: string,
   nickname: string,
   email: string,
   password: string,
   confirmPassword: string,
   allowMarketing: boolean
-): Promise<Signup> => {
-  const { data } = await gameWagon().post<Signup>("/auth/signup", {
+): Promise<signUp> => {
+  const { data } = await gameWagon().post<signUp>("/auth/signup", {
     userId: userId,
     nickname: nickname,
     email: email,
