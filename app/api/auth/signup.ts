@@ -1,4 +1,4 @@
-import { signUp } from "@/signup/signup";
+import { SignUp } from "@/signup/signup";
 import gameWagon from "@/api/commons/axios";
 
 export const signupRequest = async (
@@ -8,8 +8,8 @@ export const signupRequest = async (
   password: string,
   confirmPassword: string,
   allowMarketing: boolean
-): Promise<signUp> => {
-  const { data } = await gameWagon().post<signUp>("/auth/signup", {
+): Promise<SignUp> => {
+  const { data } = await gameWagon().post<SignUp>("/auth/signup", {
     userId: userId,
     nickname: nickname,
     email: email,

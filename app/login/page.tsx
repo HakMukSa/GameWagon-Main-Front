@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
-// import { LoginProcess } from "@/api/auth/login";
 import { loginRequest } from "@/api/auth/login";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { baseSyntheticEvent } from "@/types/commons/async-event";
+import { BaseSyntheticEvent } from "@/types/commons/async-event";
 import { LoginValidationError } from "./error";
 
 /** @todo validation 추가 */
@@ -21,7 +20,7 @@ export default function Login(): JSX.Element {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (event: baseSyntheticEvent) => {
+  const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
       // throwIfEmpty(

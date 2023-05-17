@@ -1,13 +1,13 @@
 import { create } from "zustand";
 /** @todo images외부 이미지 허용하도록 설정 */
-interface image {
+interface Image {
   src: string;
   alt: string;
 }
-interface images {
-  images: image[];
+interface Images {
+  images: Image[];
 }
-const useStore = create<images>((set) => ({
+const useStore = create<Images>((set) => ({
   images: [
     {
       src: "http://via.placeholder.com/640x400", //placeholder

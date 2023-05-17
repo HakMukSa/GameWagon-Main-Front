@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
-import { baseSyntheticEvent } from "@/types/commons/async-event";
+import { BaseSyntheticEvent } from "@/types/commons/async-event";
 
 /** @todo validation 추가
  */
@@ -15,7 +15,7 @@ export default function SignupPage(): JSX.Element {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [allowMarketing, setAllowMarketing] = useState(false);
-  const handleSubmit = async (event: baseSyntheticEvent) => {
+  const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
       const response = await signupRequest(
