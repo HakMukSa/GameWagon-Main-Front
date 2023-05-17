@@ -24,7 +24,6 @@ export default function Login(): JSX.Element {
   const handleSubmit = async (event: baseSyntheticEvent) => {
     event.preventDefault();
     try {
-      // console.log(new LoginValidationError("섹스"));
       // throwIfEmpty(
       //   new LoginValidationError("사용자 ID는 필수 항목입니다.//"),
       //   id

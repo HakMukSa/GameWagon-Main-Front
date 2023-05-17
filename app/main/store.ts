@@ -7,13 +7,10 @@ interface image {
 interface images {
   images: image[];
 }
-//http://via.placeholder.com/640x400
-//placeholder
-
 const useStore = create<images>((set) => ({
   images: [
     {
-      src: "/image1.jpg",
+      src: "http://via.placeholder.com/640x400", //placeholder
       alt: "Image 1",
     },
     {
