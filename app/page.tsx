@@ -1,7 +1,9 @@
-// index
+"use client";
+import useStore from "@/main/store";
+import Slick from "@/components/commons/Slick";
 
-import Slick from "@/components/commons/Slick"; // -> camel case
 export default function Home(): JSX.Element {
+  const { images } = useStore();
   return (
     <div className="w-full h-[100%] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-screen mx-auto">
@@ -9,7 +11,12 @@ export default function Home(): JSX.Element {
         <div id="section 01">
           <div className="w-[80%] h-[400px] mx-auto border-2 border-pink-500 border-solid">
             게임 & 하드웨어 정보 광고 배너
-            <Slick />
+            <Slick
+              images={images.map((image) => ({
+                src: image.src,
+                alt: image.alt,
+              }))}
+            />
           </div>
         </div>
 

@@ -4,7 +4,9 @@ import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import useStore from "@/main/store";
+import { Images } from "@/types/commons/image-list";
+
+import { ReactElement } from "react";
 
 const settings = {
   dots: true,
@@ -14,11 +16,8 @@ const settings = {
   slidesToScroll: 1,
   arrows: true,
 };
-
-/** @todo 이미지 목록을 props로 받도록 코딩 */
-
-const Slick = () => {
-  const { images } = useStore(); //
+const Slick = (props: Images): ReactElement => {
+  const images = props.images;
   return (
     <div className="w-full max-w-3xl mx-auto">
       <Slider {...settings}>
