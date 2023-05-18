@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { loginRequest } from "@/api/auth/login";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
 import { LoginValidationError } from "./error";
@@ -76,7 +76,7 @@ export default function Login(): JSX.Element {
                     name="id"
                     type="text"
                     autoComplete="id"
-                    // required
+                    required
                     value={id}
                     onChange={(event) => setId(event.target.value)}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
@@ -97,7 +97,7 @@ export default function Login(): JSX.Element {
                     name="password"
                     type="password"
                     autoComplete="current-password"
-                    // required
+                    required
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
