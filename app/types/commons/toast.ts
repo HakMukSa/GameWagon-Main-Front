@@ -1,5 +1,5 @@
 export type Toast = {
-  type?: string;
+  type?: "success" | "error" | "info" | "warning";
   message: string;
   position?:
     | "top-right"

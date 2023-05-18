@@ -26,8 +26,8 @@ const Slick = (props: Images): ReactElement => {
             <Image
               src={image.src}
               alt={image.alt}
-              layout="fill"
-              objectFit="cover"
+              fill={true}
+              style={{ objectFit: "cover" }}
             />
           </div>
         ))}

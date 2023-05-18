@@ -11,12 +11,7 @@ export default function Home(): JSX.Element {
         <div id="section 01">
           <div className="w-[80%] h-[400px] mx-auto border-2 border-pink-500 border-solid">
             게임 & 하드웨어 정보 광고 배너
-            <Slick
-              images={images.map((image) => ({
-                src: image.src,
-                alt: image.alt,
-              }))}
-            />
+            <Slick images={images} />
           </div>
         </div>
 

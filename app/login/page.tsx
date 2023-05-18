@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
 import { LoginValidationError } from "./error";
+import { error as showError } from "@/utilities/toast";
 
 /** @todo validation 추가 */
 
@@ -37,16 +38,7 @@ export default function Login(): JSX.Element {
       /** @todo error type */
       const errorMessages = error.response.data.messages;
       const errorKeys = Object.keys(errorMessages);
-      toast.error(`${errorMessages[errorKeys[0]]}`, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showError(errorMessages[errorKeys[0]]);
     }
   };
 
@@ -84,7 +76,7 @@ export default function Login(): JSX.Element {
                     name="id"
                     type="text"
                     autoComplete="id"
-                    required
+                    // required
                     value={id}
                     onChange={(event) => setId(event.target.value)}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
@@ -105,7 +97,7 @@ export default function Login(): JSX.Element {
                     name="password"
                     type="password"
                     autoComplete="current-password"
-                    required
+                    // required
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"

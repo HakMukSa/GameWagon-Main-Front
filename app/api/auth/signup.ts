@@ -1,4 +1,4 @@
-import { SignUp } from "@/signup/signup";
+import { SignUp } from "@/signup/type";
 import gameWagon from "@/api/commons/axios";
 
 export const signupRequest = async (
