@@ -4,8 +4,7 @@ import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
 
-/** @todo validation 추가
- */
+/** @todo validation 추가 */
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();

@@ -16,6 +16,7 @@ const throwIfEmpty = (e: Error, data?: string) => {
     throw e;
   }
 };
+
 export default function Login(): JSX.Element {
   const router = useRouter();
   const [id, setId] = useState("");

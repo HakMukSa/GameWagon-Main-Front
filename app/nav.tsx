@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReactElement } from "react";
+
 export default function Nav(): ReactElement {
   return (
     <div className="w-[65%] h-[50px] bg-[#111827] color-white flex mx-auto">
