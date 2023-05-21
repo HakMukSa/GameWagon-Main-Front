@@ -1,11 +1,7 @@
 "use client";
 export class LoginValidationError extends Error {
-  response?: {
-    data: {
-      messages: {
-        userId?: string;
-        password?: string;
-      };
-    };
-  };
+  constructor(message: string) {
+    super(message);
+    this.name = "LoginValidationError";
+  }
 }
