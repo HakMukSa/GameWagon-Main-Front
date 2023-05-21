@@ -5,17 +5,9 @@ import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
-import { LoginValidationError } from "./error";
+import { LoginValidationError } from "@/login/error";
 import { error as showError } from "@/utilities/toast";
-
-/** @todo validation 추가 */
-
-const throwIfEmpty = (e: Error, data?: string) => {
-  //
-  if (!data) {
-    throw e;
-  }
-};
+import { throwIfEmpty } from "@/utilities/exception";
 
 export default function Login(): JSX.Element {
   const router = useRouter();
@@ -25,21 +17,21 @@ export default function Login(): JSX.Element {
   const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
-      // throwIfEmpty(
-      //   new LoginValidationError("사용자 ID는 필수 항목입니다.//"),
-      //   id
-      // );
-      // throwIfEmpty(
-      //   new LoginValidationError("비밀번호는 필수 항목입니다.//"),
-      //   password
-      // );
+      throwIfEmpty(
+        id === "",
+        new LoginValidationError("사용자 ID는 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        password === "",
+        new LoginValidationError("비밀번호는 필수 항목입니다.")
+      );
       const response = await loginRequest(id, password);
       router.push("/");
     } catch (error: any) {
-      /** @todo error type */
-      const errorMessages = error.response.data.messages;
-      const errorKeys = Object.keys(errorMessages);
-      showError(errorMessages[errorKeys[0]]);
+      if (error instanceof LoginValidationError === false) {
+        throw error;
+      }
+      showError(error.message);
     }
   };
 
