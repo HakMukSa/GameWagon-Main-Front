@@ -3,6 +3,10 @@ import { useState } from "react";
 import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
+import { throwIfEmpty } from "@/utilities/exception";
+import { SignupValidationError } from "@/signup/error";
+import { error as showError } from "@/utilities/toast";
+import { ToastContainer } from "react-toastify";
 
 /** @todo validation 추가 */
 
@@ -17,6 +21,30 @@ export default function SignupPage(): JSX.Element {
   const handleSubmit = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
     try {
+      throwIfEmpty(
+        id === "",
+        new SignupValidationError("사용자 ID는 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        nickname === "",
+        new SignupValidationError("사용자 닉네임은 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        email === "",
+        new SignupValidationError("사용자 이메일 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        password === "",
+        new SignupValidationError("비밀번호는 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        confirmPassword === "",
+        new SignupValidationError("비밀번호 확인은 필수 항목입니다.")
+      );
+      throwIfEmpty(
+        allowMarketing === false,
+        new SignupValidationError("이메일 수신 동의는 필수 항목입니다.")
+      );
       const response = await signupRequest(
         id,
         nickname,
@@ -25,25 +53,19 @@ export default function SignupPage(): JSX.Element {
         confirmPassword,
         allowMarketing
       );
-      console.log(response);
       router.push("/login");
     } catch (error: any) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
+      if (error instanceof SignupValidationError === false) {
+        throw error;
       }
-      console.log(error.config);
+      showError(error.message);
     }
   };
 
   return (
     <div className="bg-[#000000]">
       <div className="w-[65%] mx-auto min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <ToastContainer />
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
             회원가입

@@ -1,8 +1,7 @@
 import gameWagon from "@/api/commons/axios";
 import { LoginValidationError } from "@/login/error";
 import { User } from "@/types/commons/user";
-import axios from "axios";
-import { HttpStatusCode } from "axios";
+import axios, { HttpStatusCode } from "axios";
 export async function loginRequest(
   userId: string,
   password: string
