@@ -8,8 +8,6 @@ import { SignupValidationError } from "@/signup/error";
 import { error as showError } from "@/utilities/toast";
 import { ToastContainer } from "react-toastify";
 
-/** @todo validation 추가 */
-
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
   const [id, setId] = useState("");
@@ -22,29 +20,32 @@ export default function SignupPage(): JSX.Element {
     event.preventDefault();
     try {
       throwIfEmpty(
-        id === "",
+        id,
         new SignupValidationError("사용자 ID는 필수 항목입니다.")
       );
       throwIfEmpty(
-        nickname === "",
+        nickname,
         new SignupValidationError("사용자 닉네임은 필수 항목입니다.")
       );
       throwIfEmpty(
-        email === "",
+        email,
         new SignupValidationError("사용자 이메일 필수 항목입니다.")
       );
       throwIfEmpty(
-        password === "",
+        password,
         new SignupValidationError("비밀번호는 필수 항목입니다.")
       );
       throwIfEmpty(
-        confirmPassword === "",
+        confirmPassword,
         new SignupValidationError("비밀번호 확인은 필수 항목입니다.")
       );
       throwIfEmpty(
-        allowMarketing === false,
-        new SignupValidationError("이메일 수신 동의는 필수 항목입니다.")
+        allowMarketing,
+        new SignupValidationError(
+          "마케팅 수신 동의 여부에 올바른 값을 입력 해주세요."
+        )
       );
+
       const response = await signupRequest(
         id,
         nickname,
@@ -126,7 +127,7 @@ export default function SignupPage(): JSX.Element {
                     value="true"
                     onChange={() => setAllowMarketing(!allowMarketing)}
                   />{" "}
-                  이메일 수신 동의
+                  (선택사항) 이메일 수신 동의
                 </label>
               </div>
               <div>

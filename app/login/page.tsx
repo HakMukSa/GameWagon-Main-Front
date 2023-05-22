@@ -18,11 +18,11 @@ export default function Login(): JSX.Element {
     event.preventDefault();
     try {
       throwIfEmpty(
-        id === "",
+        id,
         new LoginValidationError("사용자 ID는 필수 항목입니다.")
       );
       throwIfEmpty(
-        password === "",
+        password,
         new LoginValidationError("비밀번호는 필수 항목입니다.")
       );
       const response = await loginRequest(id, password);
