@@ -11,10 +11,10 @@ import { throwIfEmpty } from "@/utilities/exception";
 
 export default function Login(): JSX.Element {
   const router = useRouter();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [id, setId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (event: BaseSyntheticEvent) => {
+  const handleSubmit = async (event: BaseSyntheticEvent): Promise<void> => {
     event.preventDefault();
     try {
       throwIfEmpty(
@@ -26,6 +26,7 @@ export default function Login(): JSX.Element {
         new LoginValidationError("비밀번호는 필수 항목입니다.")
       );
       const response = await loginRequest(id, password);
+      /**@todo 로그인 후처리 */
       router.push("/");
     } catch (error: any) {
       if (error instanceof LoginValidationError === false) {

@@ -3,20 +3,20 @@ import { useState } from "react";
 import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
-import { throwIfEmpty } from "@/utilities/exception";
+import { throwIfEmpty, throwIf } from "@/utilities/exception";
 import { SignupValidationError } from "@/signup/error";
 import { error as showError } from "@/utilities/toast";
 import { ToastContainer } from "react-toastify";
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [allowMarketing, setAllowMarketing] = useState(false);
-  const handleSubmit = async (event: BaseSyntheticEvent) => {
+  const [id, setId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [allowMarketing, setAllowMarketing] = useState<boolean>(false);
+  const handleSubmit = async (event: BaseSyntheticEvent): Promise<void> => {
     event.preventDefault();
     try {
       throwIfEmpty(
@@ -39,10 +39,10 @@ export default function SignupPage(): JSX.Element {
         confirmPassword,
         new SignupValidationError("비밀번호 확인은 필수 항목입니다.")
       );
-      throwIfEmpty(
-        allowMarketing,
+      throwIf(
+        password !== confirmPassword,
         new SignupValidationError(
-          "마케팅 수신 동의 여부에 올바른 값을 입력 해주세요."
+          "비밀번호와 비밀번호 확인이 일치하지 않습니다."
         )
       );
 
@@ -118,18 +118,7 @@ export default function SignupPage(): JSX.Element {
                   />
                 </div>
               </div>
-              <div>
-                <label htmlFor="allowMarketing">
-                  <input
-                    type="checkbox"
-                    id="allowMarketing"
-                    name="allowMarketing"
-                    value="true"
-                    onChange={() => setAllowMarketing(!allowMarketing)}
-                  />{" "}
-                  (선택사항) 이메일 수신 동의
-                </label>
-              </div>
+
               <div>
                 <label
                   htmlFor="nickname"
@@ -197,6 +186,18 @@ export default function SignupPage(): JSX.Element {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                   />
                 </div>
+              </div>
+              <div>
+                <label htmlFor="allowMarketing">
+                  <input
+                    type="checkbox"
+                    id="allowMarketing"
+                    name="allowMarketing"
+                    value="true"
+                    onChange={() => setAllowMarketing(!allowMarketing)}
+                  />{" "}
+                  (선택사항) 이메일 수신 동의
+                </label>
               </div>
               <br />
               <div>
