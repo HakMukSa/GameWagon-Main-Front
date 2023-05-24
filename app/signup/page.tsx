@@ -93,7 +93,7 @@ export default function SignupPage(): JSX.Element {
     }
   };
 
-  const handleErrorInput = (field: string) => {
+  const handleErrorInput = (field: string): void => {
     switch (field) {
       case "id":
         setIdIsCorrect(false);
@@ -113,7 +113,9 @@ export default function SignupPage(): JSX.Element {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const { name, value } = event.target;
     switch (name) {
       case "id":
