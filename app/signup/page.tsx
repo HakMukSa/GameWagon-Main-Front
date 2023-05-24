@@ -73,6 +73,7 @@ export default function SignupPage(): JSX.Element {
           passwordInputRef
         )
       );
+
       const response = await signupRequest(
         id,
         nickname,
