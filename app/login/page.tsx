@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { loginRequest } from "@/api/auth/login";
 import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
@@ -11,19 +11,29 @@ import { throwIfEmpty } from "@/utilities/exception";
 
 export default function Login(): JSX.Element {
   const router = useRouter();
+  // input state
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  // input isCorrect
+  const [idIsCorrect, setIdIsCorrect] = useState(true);
+  const [passwordIsCorrect, setPasswordIsCorrect] = useState(true);
+  // input ref
+  const idInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (event: BaseSyntheticEvent): Promise<void> => {
     event.preventDefault();
     try {
       throwIfEmpty(
         id,
-        new LoginValidationError("사용자 ID는 필수 항목입니다.")
+        new LoginValidationError("사용자 ID는 필수 항목입니다.", idInputRef)
       );
       throwIfEmpty(
         password,
-        new LoginValidationError("비밀번호는 필수 항목입니다.")
+        new LoginValidationError(
+          "비밀번호는 필수 항목입니다.",
+          passwordInputRef
+        )
       );
       const response = await loginRequest(id, password);
       /**@todo 로그인 후처리 */
@@ -33,6 +43,34 @@ export default function Login(): JSX.Element {
         throw error;
       }
       showError(error.message);
+      console.log(error.field);
+      error?.field?.current.focus();
+      handleErrorInput(error.field?.current.id);
+    }
+  };
+
+  const handleErrorInput = (field: string) => {
+    switch (field) {
+      case "id":
+        setIdIsCorrect(false);
+        break;
+      case "password":
+        setPasswordIsCorrect(false);
+        break;
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case "id":
+        setId(value);
+        setIdIsCorrect(value !== "");
+        break;
+      case "password":
+        setPassword(value);
+        setPasswordIsCorrect(value !== "");
+        break;
     }
   };
 
@@ -72,8 +110,11 @@ export default function Login(): JSX.Element {
                     autoComplete="id"
                     required
                     value={id}
-                    onChange={(event) => setId(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black ${
+                      idIsCorrect ? "" : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={idInputRef}
                   />
                 </div>
               </div>
@@ -93,8 +134,13 @@ export default function Login(): JSX.Element {
                     autoComplete="current-password"
                     required
                     value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black ${
+                      passwordIsCorrect
+                        ? ""
+                        : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={passwordInputRef}
                   />
                 </div>
               </div>

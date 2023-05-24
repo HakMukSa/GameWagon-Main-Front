@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
@@ -10,42 +10,69 @@ import { ToastContainer } from "react-toastify";
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
+  // input state
   const [id, setId] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [allowMarketing, setAllowMarketing] = useState<boolean>(false);
+  // input isCorrect
+  const [idIsCorrect, setIdIsCorrect] = useState(true);
+  const [emailIsCorrect, setEmailIsCorrect] = useState(true);
+  const [nicknameIsCorrect, setNicknameIsCorrect] = useState(true);
+  const [passwordIsCorrect, setPasswordIsCorrect] = useState(true);
+  const [confirmPasswordIsCorrect, setConfirmPasswordIsCorrect] =
+    useState(true);
+  // input ref
+  const idInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const nicknameInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = async (event: BaseSyntheticEvent): Promise<void> => {
     event.preventDefault();
     try {
       throwIfEmpty(
         id,
-        new SignupValidationError("사용자 ID는 필수 항목입니다.")
+        new SignupValidationError("사용자 ID는 필수 항목입니다.", idInputRef)
       );
       throwIfEmpty(
         nickname,
-        new SignupValidationError("사용자 닉네임은 필수 항목입니다.")
+        new SignupValidationError(
+          "사용자 닉네임은 필수 항목입니다.",
+          nicknameInputRef
+        )
       );
       throwIfEmpty(
         email,
-        new SignupValidationError("사용자 이메일 필수 항목입니다.")
+        new SignupValidationError(
+          "사용자 이메일 필수 항목입니다.",
+          emailInputRef
+        )
       );
       throwIfEmpty(
         password,
-        new SignupValidationError("비밀번호는 필수 항목입니다.")
+        new SignupValidationError(
+          "비밀번호는 필수 항목입니다.",
+          passwordInputRef
+        )
       );
       throwIfEmpty(
         confirmPassword,
-        new SignupValidationError("비밀번호 확인은 필수 항목입니다.")
+        new SignupValidationError(
+          "비밀번호 확인은 필수 항목입니다.",
+          confirmPasswordInputRef
+        )
       );
       throwIf(
         password !== confirmPassword,
         new SignupValidationError(
-          "비밀번호와 비밀번호 확인이 일치하지 않습니다."
+          "비밀번호와 비밀번호 확인이 일치하지 않습니다.",
+          passwordInputRef
         )
       );
-
       const response = await signupRequest(
         id,
         nickname,
@@ -60,6 +87,54 @@ export default function SignupPage(): JSX.Element {
         throw error;
       }
       showError(error.message);
+      error?.field?.current.focus();
+      handleErrorInput(error.field?.current.id);
+    }
+  };
+
+  const handleErrorInput = (field: string) => {
+    switch (field) {
+      case "id":
+        setIdIsCorrect(false);
+        break;
+      case "password":
+        setPasswordIsCorrect(false);
+        break;
+      case "email":
+        setEmailIsCorrect(false);
+        break;
+      case "nickname":
+        setNicknameIsCorrect(false);
+        break;
+      case "confirm_password":
+        setConfirmPasswordIsCorrect(false);
+        break;
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case "id":
+        setId(value);
+        setIdIsCorrect(value !== "");
+        break;
+      case "password":
+        setPassword(value);
+        setPasswordIsCorrect(value !== "");
+        break;
+      case "email":
+        setEmail(value);
+        setPasswordIsCorrect(value !== "");
+        break;
+      case "nickname":
+        setNickname(value);
+        setNicknameIsCorrect(value !== "");
+        break;
+      case "confirm_password":
+        setConfirmPassword(value);
+        setConfirmPasswordIsCorrect(value !== "");
+        break;
     }
   };
 
@@ -82,18 +157,20 @@ export default function SignupPage(): JSX.Element {
                   className="block text-sm font-medium text-white"
                 >
                   아이디 <span>(5글자 이상, 최대 15자 이하)</span>
-                  {/*필수사항*/}
                 </label>
                 <div className="mt-1">
                   <input
                     id="id"
                     name="id"
-                    type="id"
+                    type="text"
                     autoComplete="id"
                     required
                     value={id}
-                    onChange={(event) => setId(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black ${
+                      idIsCorrect ? "" : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={idInputRef}
                   />
                 </div>
               </div>
@@ -103,7 +180,6 @@ export default function SignupPage(): JSX.Element {
                   className="block text-sm font-medium text-white"
                 >
                   이메일
-                  {/*필수사항*/}
                 </label>
                 <div className="mt-1 flex">
                   <input
@@ -113,8 +189,13 @@ export default function SignupPage(): JSX.Element {
                     autoComplete="email"
                     required
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black ${
+                      emailIsCorrect
+                        ? ""
+                        : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={emailInputRef}
                   />
                 </div>
               </div>
@@ -125,7 +206,6 @@ export default function SignupPage(): JSX.Element {
                   className="block text-sm font-medium text-white"
                 >
                   닉네임 <span>(2글자 이상, 10글자 이하)</span>
-                  {/*필수사항*/}
                 </label>
                 <div className="mt-1">
                   <input
@@ -135,8 +215,14 @@ export default function SignupPage(): JSX.Element {
                     autoComplete="nickname"
                     required
                     value={nickname}
-                    onChange={(event) => setNickname(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black
+                    ${
+                      nicknameIsCorrect
+                        ? ""
+                        : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={nicknameInputRef}
                   />
                 </div>
               </div>
@@ -151,7 +237,6 @@ export default function SignupPage(): JSX.Element {
                     <br />
                     6글자 이상, 20글자 이하)
                   </span>
-                  {/*필수사항*/}
                 </label>
                 <div className="mt-1">
                   <input
@@ -161,8 +246,14 @@ export default function SignupPage(): JSX.Element {
                     autoComplete="current-password"
                     required
                     value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black
+                    ${
+                      passwordIsCorrect
+                        ? ""
+                        : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={passwordInputRef}
                   />
                 </div>
               </div>
@@ -172,7 +263,6 @@ export default function SignupPage(): JSX.Element {
                   className="block text-sm font-medium text-white"
                 >
                   비밀번호 확인
-                  {/*필수사항*/}
                 </label>
                 <div className="mt-1">
                   <input
@@ -182,8 +272,14 @@ export default function SignupPage(): JSX.Element {
                     autoComplete="current-password"
                     required
                     value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                    onChange={handleInputChange}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black
+                    ${
+                      confirmPasswordIsCorrect
+                        ? ""
+                        : "border-red-500 focus:border-red-500"
+                    }`}
+                    ref={confirmPasswordInputRef}
                   />
                 </div>
               </div>
