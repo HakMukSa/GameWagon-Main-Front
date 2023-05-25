@@ -3,48 +3,49 @@ import { useState } from "react";
 import { signupRequest } from "@/api/auth/signup";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "@/types/commons/async-event";
-import { throwIfEmpty } from "@/utilities/exception";
+import { throwIfEmpty, throwIf } from "@/utilities/exception";
 import { SignupValidationError } from "@/signup/error";
 import { error as showError } from "@/utilities/toast";
 import { ToastContainer } from "react-toastify";
 
-/** @todo validation 추가 */
-
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [allowMarketing, setAllowMarketing] = useState(false);
-  const handleSubmit = async (event: BaseSyntheticEvent) => {
+  const [id, setId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [allowMarketing, setAllowMarketing] = useState<boolean>(false);
+  const handleSubmit = async (event: BaseSyntheticEvent): Promise<void> => {
     event.preventDefault();
     try {
       throwIfEmpty(
-        id === "",
+        id,
         new SignupValidationError("사용자 ID는 필수 항목입니다.")
       );
       throwIfEmpty(
-        nickname === "",
+        nickname,
         new SignupValidationError("사용자 닉네임은 필수 항목입니다.")
       );
       throwIfEmpty(
-        email === "",
+        email,
         new SignupValidationError("사용자 이메일 필수 항목입니다.")
       );
       throwIfEmpty(
-        password === "",
+        password,
         new SignupValidationError("비밀번호는 필수 항목입니다.")
       );
       throwIfEmpty(
-        confirmPassword === "",
+        confirmPassword,
         new SignupValidationError("비밀번호 확인은 필수 항목입니다.")
       );
-      throwIfEmpty(
-        allowMarketing === false,
-        new SignupValidationError("이메일 수신 동의는 필수 항목입니다.")
+      throwIf(
+        password !== confirmPassword,
+        new SignupValidationError(
+          "비밀번호와 비밀번호 확인이 일치하지 않습니다."
+        )
       );
+
       const response = await signupRequest(
         id,
         nickname,
@@ -117,18 +118,7 @@ export default function SignupPage(): JSX.Element {
                   />
                 </div>
               </div>
-              <div>
-                <label htmlFor="allowMarketing">
-                  <input
-                    type="checkbox"
-                    id="allowMarketing"
-                    name="allowMarketing"
-                    value="true"
-                    onChange={() => setAllowMarketing(!allowMarketing)}
-                  />{" "}
-                  이메일 수신 동의
-                </label>
-              </div>
+
               <div>
                 <label
                   htmlFor="nickname"
@@ -196,6 +186,18 @@ export default function SignupPage(): JSX.Element {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                   />
                 </div>
+              </div>
+              <div>
+                <label htmlFor="allowMarketing">
+                  <input
+                    type="checkbox"
+                    id="allowMarketing"
+                    name="allowMarketing"
+                    value="true"
+                    onChange={() => setAllowMarketing(!allowMarketing)}
+                  />{" "}
+                  (선택사항) 이메일 수신 동의
+                </label>
               </div>
               <br />
               <div>
