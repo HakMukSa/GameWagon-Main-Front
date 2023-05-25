@@ -1,7 +1,12 @@
 "use client";
+import { RefObject } from "react";
 export class SignupValidationError extends Error {
-  constructor(message: string) {
+  public field?: RefObject<HTMLInputElement>;
+  constructor(message: string, field?: RefObject<HTMLInputElement>) {
     super(message);
-    this.name = "LoginValidationError";
+    this.name = "SignupValidationError";
+    if (field) {
+      this.field = field;
+    }
   }
 }
