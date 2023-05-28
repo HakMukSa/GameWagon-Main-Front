@@ -43,10 +43,6 @@ export default function Login(): JSX.Element {
         throw error;
       }
       showError(error.message);
-<<<<<<< HEAD
-      console.log(error.field);
-=======
->>>>>>> 6b4da7abd97ba7f2bd472b93c7eb6e4a27062927
       error?.field?.current.focus();
       handleErrorInput(error.field?.current.id);
     }

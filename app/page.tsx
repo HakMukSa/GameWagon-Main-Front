@@ -1,9 +1,10 @@
 "use client";
 import useStore from "@/main/store";
 import Slick from "@/components/commons/Slick";
+import Youtube from "@/components/index/Youtube";
 
 export default function Home(): JSX.Element {
-  const { images } = useStore();
+  const { images, youtube } = useStore();
   return (
     <div className="w-full h-[100%] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-screen mx-auto">
@@ -20,8 +21,8 @@ export default function Home(): JSX.Element {
           <div className="w-[45%] h-[300px] mr-[10%] border-2 border-blue-500 border-solid">
             게시판 인기글
           </div>
-          <div className="w-[45%] border-2 border-blue-500 border-solid">
-            유튜브
+          <div className="w-[45%] bg-[#999999] rounded-lg">
+            <Youtube list={youtube} />
           </div>
         </div>
 
