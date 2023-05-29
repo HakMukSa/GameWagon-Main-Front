@@ -15,7 +15,7 @@ const useStore = create<Store>((set) => ({
       alt: "Image 3",
     },
   ],
-  youtube: [
+  youtubeMeta: [
     {
       src: "https://www.youtube.com/embed/qpBkMvEyNjc",
       title: "[블루아카이브] 1.5주년 신규 OST [Thanks to] with 윤하",

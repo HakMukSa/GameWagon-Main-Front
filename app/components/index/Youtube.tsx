@@ -5,8 +5,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { Youtube } from "@/types/commons/store";
 import { useState } from "react";
 import Image from "next/image";
+import { settings } from "@/types/commons/slick-settings";
 
-const settings = {
+const settings: settings = {
   dots: true,
   infinite: true,
   speed: 500,

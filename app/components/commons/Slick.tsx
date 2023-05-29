@@ -5,10 +5,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Images } from "@/types/commons/store";
+import { settings } from "@/types/commons/slick-settings";
 
 import { ReactElement } from "react";
 
-const settings = {
+const settings: settings = {
   dots: true,
   infinite: true,
   speed: 500,
