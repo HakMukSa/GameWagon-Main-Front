@@ -5,10 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { YoutubeMeta } from "@/types/commons/store";
 import { ReactElement, useState } from "react";
 import Image from "next/image";
-import { settings } from "@/types/commons/slick-settings";
+import { Settings } from "react-slick";
 import useStore from "@/main/store";
 
-const settings: settings = {
+const settings: Settings = {
   dots: true,
   infinite: true,
   speed: 500,
@@ -31,11 +31,11 @@ export default function Youtube(): ReactElement {
           <div
             key={item.src}
             className="w-[100%] h-[300px]"
-            onClick={() => [
-              setSelected(item.src),
-              setSelectedTitle(item.title),
-              setModalIsOpen(true),
-            ]}
+            onClick={() => {
+              setSelected(item.src);
+              setSelectedTitle(item.title);
+              setModalIsOpen(true);
+            }}
           >
             <Image
               src={item.thumbnail}
