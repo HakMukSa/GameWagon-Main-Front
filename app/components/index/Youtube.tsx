@@ -2,10 +2,11 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Youtube } from "@/types/commons/store";
-import { useState } from "react";
+import { YoutubeMeta } from "@/types/commons/store";
+import { ReactElement, useState } from "react";
 import Image from "next/image";
 import { settings } from "@/types/commons/slick-settings";
+import useStore from "@/main/store";
 
 const settings: settings = {
   dots: true,
@@ -16,8 +17,9 @@ const settings: settings = {
   arrows: false,
 };
 
-export default function Youtube(props: Youtube) {
-  const list = props.list;
+export default function Youtube(): ReactElement {
+  const { youtubeMeta } = useStore();
+  const list: YoutubeMeta[] = youtubeMeta;
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>("");
   const [selectedTitle, setSelectedTitle] = useState<string>("");

@@ -4,7 +4,7 @@ import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 
 export default function Home(): JSX.Element {
-  const { images, youtubeMeta } = useStore();
+  const { images } = useStore();
   return (
     <div className="w-full h-[150vh] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-[150vh] mx-auto">
@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
             게시판 인기글
           </div>
           <div className="w-[48%] bg-[#999999] rounded-lg">
-            <Youtube list={youtubeMeta} />
+            <Youtube />
           </div>
         </div>
 
