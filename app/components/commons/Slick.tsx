@@ -1,15 +1,13 @@
 "use client";
-import Image from "next/image";
-// for Image Slide
+import * as NextImage from "next/image";
 import Slider from "react-slick";
+import { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Images } from "@/types/commons/store";
-import { settings } from "@/types/commons/slick-settings";
-
+import { Image } from "@/types/commons/store";
 import { ReactElement } from "react";
 
-const settings: settings = {
+const settings: Settings = {
   dots: true,
   infinite: true,
   speed: 500,
@@ -17,14 +15,14 @@ const settings: settings = {
   slidesToScroll: 1,
   arrows: true,
 };
-const Slick = (props: Images): ReactElement => {
+const Slick = (props: { images: Image[] }): ReactElement => {
   const images = props.images;
   return (
     <div className="w-full max-w-3xl mx-auto">
       <Slider {...settings}>
         {images.map((image) => (
           <div key={image.src} className="relative h-80">
-            <Image
+            <NextImage.default
               src={image.src}
               alt={image.alt}
               fill={true}

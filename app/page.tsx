@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
             게시판 인기글
           </div>
           <div className="w-[48%] bg-[#999999] rounded-lg">
-            <Youtube list={youtubeMeta} />
+            <Youtube />
           </div>
         </div>
 

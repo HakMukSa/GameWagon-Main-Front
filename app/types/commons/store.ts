@@ -1,17 +1,10 @@
 export type Store = {
-  images: ImageList[];
+  images: Image[];
   youtubeMeta: YoutubeMeta[];
 };
-
-export type Images = {
-  images: ImageList[];
-};
-export type ImageList = {
+export type Image = {
   src: string;
   alt: string;
-};
-export type Youtube = {
-  list: YoutubeMeta[];
 };
 export type YoutubeMeta = {
   src: string;
