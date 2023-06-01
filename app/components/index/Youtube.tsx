@@ -24,7 +24,7 @@ export default function Youtube(): ReactElement {
   const [selected, setSelected] = useState<string>("");
   const [selectedTitle, setSelectedTitle] = useState<string>("");
   const [selectedArtist, setSelectedArtist] = useState<string>("");
-  const [selectedTag, setSelectedTag] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function Youtube(): ReactElement {
               setSelected(item.src);
               setSelectedTitle(item.title);
               setSelectedArtist(item.artist);
-              setSelectedTag(item.tag);
+              setSelectedTags(item.tags);
               setModalIsOpen(true);
             }}
           >
@@ -89,7 +89,11 @@ export default function Youtube(): ReactElement {
                 </button>
               </div>
               <div className="absolute top-12 left-3 text-[18px] text-[#FFBDD4]">
-                <span>{selectedTag}</span>
+                <span>
+                  {selectedTags.map((i) => (
+                    <span>{i}&nbsp;</span>
+                  ))}
+                </span>
               </div>
 
               {/* youtube */}
