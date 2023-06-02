@@ -90,9 +90,11 @@ export default function Youtube(): ReactElement {
               </div>
               <div className="absolute top-12 left-3 text-[18px] text-[#FFBDD4]">
                 <span>
-                  {selectedTags.map((i) => (
-                    <span key={i}>{i}&nbsp;</span>
-                  ))}
+                  {selectedTags.map(
+                    (tagValue: string, index: number): JSX.Element => (
+                      <span key={index}>#{tagValue}&nbsp;</span>
+                    )
+                  )}
                 </span>
               </div>
 
