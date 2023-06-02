@@ -21,6 +21,13 @@ const useStore = create<Store>((set) => ({
       title: "[블루아카이브] 1.5주년 신규 OST [Thanks to] with 윤하",
       thumbnail: "https://i.ytimg.com/vi/qpBkMvEyNjc/hq720.jpg",
       alt: "[블루아카이브] 1.5주년 신규 OST [Thanks to] with 윤하",
+      artist: "블루 아카이브",
+      tags: [
+        "추천게임동영상",
+        "추천동영상",
+        "블루아카이브",
+        "블루아카이브1.5주년",
+      ],
     },
     {
       src: "https://www.youtube.com/embed/VzzvtfS4_aE",
@@ -28,6 +35,8 @@ const useStore = create<Store>((set) => ({
         "블루 아카이브 호시노 콧노래 리믹스 / Blue Archive Hoshino Song (Quilt remix)",
       thumbnail: "https://i.ytimg.com/vi/VzzvtfS4_aE/hq720.jpg",
       alt: "블루 아카이브 호시노 콧노래 리믹스 / Blue Archive Hoshino Song (Quilt remix)",
+      artist: "quilt heron",
+      tags: ["추천게임동영상", "블루아카이브", "추천동영상"],
     },
   ],
 }));

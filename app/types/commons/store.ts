@@ -11,4 +11,6 @@ export type YoutubeMeta = {
   title: string;
   thumbnail: string;
   alt: string;
+  artist: string;
+  tags: string[];
 };
