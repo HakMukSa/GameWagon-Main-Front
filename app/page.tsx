@@ -2,12 +2,29 @@
 import useStore from "@/main/store";
 import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
+import { gameList } from "@/api/game/game-list";
+import { useState, useEffect } from "react";
+import { GameList } from "./types/commons/gamelist";
+import GamesRanking from "@/components/index/GamesRanking";
 
 export default function Home(): JSX.Element {
+  const [gameRanking, setGameRanking] = useState<GameList | null>(null);
+  useEffect(() => {
+    const getGameList = async (
+      platform: string,
+      sortBy: "MP" | "NR" | "TS"
+    ) => {
+      const gamesRanking = await gameList(platform, sortBy);
+      setGameRanking(gamesRanking);
+    };
+    getGameList("steam", "MP");
+  }, []);
+  const data = gameRanking?.rankings;
   const { images } = useStore();
+
   return (
-    <div className="w-full h-[150vh] bg-[#000000] color-white">
-      <div className="w-[65%] bg-[#111827] h-[150vh] mx-auto">
+    <div className="w-full h-[250vh] bg-[#000000] color-white">
+      <div className="w-[65%] bg-[#111827] h-[250vh] mx-auto">
         {/* section 01: 게임 & 하드웨어 정보 광고 배너 */}
         <div id="section 01">
           <div className="w-[80%] h-[400px] mx-auto border-2 border-pink-500 border-solid">
@@ -27,8 +44,11 @@ export default function Home(): JSX.Element {
         </div>
 
         {/* section 03: 게임 세일 항목 */}
-        <div id="section 03" className="mt-[50px] flex w-[80%] mx-auto">
-          <div className="">section 03: 게임 세일 항목 (귀찮아서 나중)</div>
+        <div id="section 03" className="mt-[50px] w-[80%] mx-auto">
+          <div className="">section 03: 게임 세일 항목</div>
+          <div className="w-[100%] h-[500px] mt-[50px]">
+            <GamesRanking data={data} />
+          </div>
         </div>
       </div>
     </div>
