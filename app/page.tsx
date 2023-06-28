@@ -3,24 +3,24 @@ import useStore from "@/main/store";
 import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 import { gameList } from "@/api/game/game-list";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { GameList } from "./types/commons/gamelist";
-import GamesRanking from "@/components/index/GamesRanking";
+import {
+  GameImage,
+  GameImageSkeleton,
+} from "./components/commons/Games/GameImage";
 
 export default function Home(): JSX.Element {
-  const [gameRanking, setGameRanking] = useState<GameList | null>(null);
-  useEffect(() => {
-    const getGameList = async (
-      platform: string,
-      sortBy: "MP" | "NR" | "TS"
-    ) => {
-      const gamesRanking = await gameList(platform, sortBy);
-      setGameRanking(gamesRanking);
-    };
-    getGameList("steam", "MP");
-  }, []);
-  const data = gameRanking?.rankings;
   const { images } = useStore();
+  const [games, setGames] = useState<GameList | {} | any>({});
+  useEffect(() => {
+    const getGameRanking = async () => {
+      const gameRanking10 = await gameList("steam", "MP");
+      setGames(gameRanking10.rankings);
+    };
+    getGameRanking();
+  }, []);
+  console.log(games);
 
   return (
     <div className="w-full h-[250vh] bg-[#000000] color-white">
@@ -47,7 +47,114 @@ export default function Home(): JSX.Element {
         <div id="section 03" className="mt-[50px] w-[80%] mx-auto">
           <div className="">section 03: 게임 세일 항목</div>
           <div className="w-[100%] h-[500px] mt-[50px]">
-            <GamesRanking data={data} />
+            <>
+              <div className="flex justify-around">
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[0]?.name}
+                    image={games[0]?.game.images[0]}
+                    link={games[0]?.game.gameUrl}
+                    title={games[0]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[1]?.name}
+                    image={games[1]?.game.images[0]}
+                    link={games[1]?.game.gameUrl}
+                    title={games[1]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[2]?.name}
+                    image={games[2]?.game.images[0]}
+                    link={games[2]?.game.gameUrl}
+                    title={games[2]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[3]?.name}
+                    image={games[3]?.game.images[0]}
+                    link={games[3]?.game.gameUrl}
+                    title={games[3]?.game.name}
+                  />
+                )}
+              </div>
+              <div className="flex justify-around mt-[50px]">
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[4]?.name}
+                    image={games[4]?.game.images[0]}
+                    link={games[4]?.game.gameUrl}
+                    title={games[4]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[5]?.name}
+                    image={games[5]?.game.images[0]}
+                    link={games[5]?.game.gameUrl}
+                    title={games[5]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[6]?.name}
+                    image={games[6]?.game.images[0]}
+                    link={games[6]?.game.gameUrl}
+                    title={games[6]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[7]?.name}
+                    image={games[7]?.game.images[0]}
+                    link={games[7]?.game.gameUrl}
+                    title={games[7]?.game.name}
+                  />
+                )}
+              </div>
+              <div className="flex justify-around mt-[50px]">
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[8]?.name}
+                    image={games[8]?.game.images[0]}
+                    link={games[8]?.game.gameUrl}
+                    title={games[8]?.game.name}
+                  />
+                )}
+                {Object.keys(games).length === 0 ? (
+                  <GameImageSkeleton />
+                ) : (
+                  <GameImage
+                    key={games[9]?.name}
+                    image={games[9]?.game.images[0]}
+                    link={games[9]?.game.gameUrl}
+                    title={games[9]?.game.name}
+                  />
+                )}
+              </div>
+            </>
           </div>
         </div>
       </div>

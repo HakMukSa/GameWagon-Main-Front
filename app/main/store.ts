@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { Store } from "@/types/commons/store";
+import { gameList } from "@/api/game/game-list";
+
 const useStore = create<Store>((set) => ({
   images: [
     {
