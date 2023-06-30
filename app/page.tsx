@@ -3,8 +3,8 @@ import useStore from "@/main/store";
 import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 import { gameList } from "@/api/game/game-list";
-import { useState, useEffect, ReactElement } from "react";
-import { GameList } from "./types/commons/gamelist";
+import { useState, useEffect } from "react";
+import { GameList, GameListRanking_Game } from "./types/commons/gamelist";
 import {
   GameImage,
   GameImageSkeleton,
@@ -20,14 +20,13 @@ export default function Home(): JSX.Element {
     };
     getGameRanking();
   }, []);
-  console.log(games);
 
   return (
     <div className="w-full h-[250vh] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-[250vh] mx-auto">
         {/* section 01: 게임 & 하드웨어 정보 광고 배너 */}
         <div id="section 01">
-          <div className="w-[80%] h-[400px] mx-auto border-2 border-pink-500 border-solid">
+          <div className="w-[80%] h-[400px] mx-auto ">
             게임 & 하드웨어 정보 광고 배너
             <Slick images={images} />
           </div>
@@ -44,117 +43,40 @@ export default function Home(): JSX.Element {
         </div>
 
         {/* section 03: 게임 세일 항목 */}
+        {/** *@Todo 실제 이미지 적용 후 width, height 조정 필요 */}
         <div id="section 03" className="mt-[50px] w-[80%] mx-auto">
           <div className="">section 03: 게임 세일 항목</div>
-          <div className="w-[100%] h-[500px] mt-[50px]">
-            <>
-              <div className="flex justify-around">
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[0]?.name}
-                    image={games[0]?.game.images[0]}
-                    link={games[0]?.game.gameUrl}
-                    title={games[0]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[1]?.name}
-                    image={games[1]?.game.images[0]}
-                    link={games[1]?.game.gameUrl}
-                    title={games[1]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[2]?.name}
-                    image={games[2]?.game.images[0]}
-                    link={games[2]?.game.gameUrl}
-                    title={games[2]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[3]?.name}
-                    image={games[3]?.game.images[0]}
-                    link={games[3]?.game.gameUrl}
-                    title={games[3]?.game.name}
-                  />
-                )}
-              </div>
-              <div className="flex justify-around mt-[50px]">
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[4]?.name}
-                    image={games[4]?.game.images[0]}
-                    link={games[4]?.game.gameUrl}
-                    title={games[4]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[5]?.name}
-                    image={games[5]?.game.images[0]}
-                    link={games[5]?.game.gameUrl}
-                    title={games[5]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[6]?.name}
-                    image={games[6]?.game.images[0]}
-                    link={games[6]?.game.gameUrl}
-                    title={games[6]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[7]?.name}
-                    image={games[7]?.game.images[0]}
-                    link={games[7]?.game.gameUrl}
-                    title={games[7]?.game.name}
-                  />
-                )}
-              </div>
-              <div className="flex justify-around mt-[50px]">
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[8]?.name}
-                    image={games[8]?.game.images[0]}
-                    link={games[8]?.game.gameUrl}
-                    title={games[8]?.game.name}
-                  />
-                )}
-                {Object.keys(games).length === 0 ? (
-                  <GameImageSkeleton />
-                ) : (
-                  <GameImage
-                    key={games[9]?.name}
-                    image={games[9]?.game.images[0]}
-                    link={games[9]?.game.gameUrl}
-                    title={games[9]?.game.name}
-                  />
-                )}
-              </div>
-            </>
+          <div className="w-[100%] h-[300px] mt-[50px] flex">
+            {games.length > 0
+              ? games
+                  .slice(0, 5)
+                  .map((game: GameListRanking_Game, index: number) => (
+                    <GameImage
+                      key={game.game.name}
+                      image={game.game.images[0]}
+                      link={game.game.gameUrl}
+                      title={game.game.name}
+                    />
+                  ))
+              : Array.from({ length: 5 }).map((_, index) => (
+                  <GameImageSkeleton key={index} />
+                ))}
+          </div>
+          <div className="w-[100%] h-[300px] mt-[10px] flex">
+            {games.length > 0
+              ? games
+                  .slice(5, 10)
+                  .map((game: GameListRanking_Game, index: number) => (
+                    <GameImage
+                      key={game.game.name}
+                      image={game.game.images[0]}
+                      link={game.game.gameUrl}
+                      title={game.game.name}
+                    />
+                  ))
+              : Array.from({ length: 5 }).map((_, index) => (
+                  <GameImageSkeleton key={index} />
+                ))}
           </div>
         </div>
       </div>

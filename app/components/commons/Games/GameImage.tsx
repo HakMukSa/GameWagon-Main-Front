@@ -1,11 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-type GameImageProps = {
-  image: string;
-  link: string;
-  title: string;
-};
+import { GameImageProps } from "@/types/commons/gamelist";
 /**
  *@Todo 실제 이미지 적용 후 width, height 조정 필요
  */
