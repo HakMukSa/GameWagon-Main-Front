@@ -50,7 +50,7 @@ export default function Home(): JSX.Element {
             {games.length > 0
               ? games
                   .slice(0, 5)
-                  .map((game: GameListRanking_Game, index: number) => (
+                  .map((game: GameListRanking_Game) => (
                     <GameImage
                       key={game.game.name}
                       image={game.game.images[0]}
@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
             {games.length > 0
               ? games
                   .slice(5, 10)
-                  .map((game: GameListRanking_Game, index: number) => (
+                  .map((game: GameListRanking_Game) => (
                     <GameImage
                       key={game.game.name}
                       image={game.game.images[0]}
