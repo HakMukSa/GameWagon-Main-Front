@@ -7,65 +7,40 @@ export type GameImageProps = {
   link: string;
   title: string;
 };
-export type GameList = {
-  rankings: {
-    ranking: number;
-    game: {
-      id: number;
-      name: string;
-      gameUrl: string;
-      price: number;
-      discountRate: number;
-      releaseDate: string;
-      ranking: string;
-      platform: string;
-      images: string[];
-      extraData: {
-        languages: [
-          {
-            language: "string";
-            subtitle: boolean;
-            dubbing: boolean;
-            userPatch: boolean;
-          }
-        ];
-        playTypes: {
-          single: boolean;
-          multi: boolean;
-          online: boolean;
-          vr: boolean;
-        };
-      };
+
+export type Game = {
+  id: number;
+  name: string;
+  gameUrl: string;
+  price: number;
+  discountRate: number;
+  releaseDate: string;
+  ranking: string;
+  platform: string;
+  images: string[];
+  extraData: {
+    languages: [
+      {
+        language: "string";
+        subtitle: boolean;
+        dubbing: boolean;
+        userPatch: boolean;
+      }
+    ];
+    playTypes: {
+      single: boolean;
+      multi: boolean;
+      online: boolean;
+      vr: boolean;
     };
   };
 };
 
-export type GameListRanking_Game = {
-  game: {
-    id: number;
-    name: string;
-    gameUrl: string;
-    price: number;
-    discountRate: number;
-    releaseDate: string;
-    ranking: string;
-    platform: string;
-    images: string[];
-    extraData: {
-      languages: [
-        {
-          language: "string";
-          subtitle: boolean;
-          dubbing: boolean;
-          userPatch: boolean;
-        }
-      ];
-      playTypes: {
-        single: boolean;
-        multi: boolean;
-        online: boolean;
-        vr: boolean;
-      };
-    };
-  };
+export type GameRanking = {
+  ranking: number;
+  game: Game;
+};
+
+export type GameListRankings = {
+  rankings: GameRanking[];
 };

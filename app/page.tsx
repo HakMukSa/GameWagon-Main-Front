@@ -4,15 +4,15 @@ import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 import { gameList } from "@/api/game/game-list";
 import { useState, useEffect } from "react";
-import { GameList, GameListRanking_Game } from "./types/commons/gamelist";
+import { GameRanking } from "./types/commons/gamelist";
 import {
   GameImage,
   GameImageSkeleton,
-} from "./components/commons/Games/GameImage";
+} from "@/components/commons/Games/GameImage";
 
 export default function Home(): JSX.Element {
   const { images } = useStore();
-  const [games, setGames] = useState<GameList | {} | any>({});
+  const [games, setGames] = useState<GameRanking | {} | any>({});
   useEffect(() => {
     const getGameRanking = async () => {
       const gameRanking10 = await gameList("steam", "MP");
@@ -50,7 +50,7 @@ export default function Home(): JSX.Element {
             {games.length > 0
               ? games
                   .slice(0, 5)
-                  .map((game: GameListRanking_Game) => (
+                  .map((game: GameRanking) => (
                     <GameImage
                       key={game.game.name}
                       image={game.game.images[0]}
@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
             {games.length > 0
               ? games
                   .slice(5, 10)
-                  .map((game: GameListRanking_Game) => (
+                  .map((game: GameRanking) => (
                     <GameImage
                       key={game.game.name}
                       image={game.game.images[0]}
