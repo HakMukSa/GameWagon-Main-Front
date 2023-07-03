@@ -13,13 +13,28 @@ import {
 export default function Home(): JSX.Element {
   const { images } = useStore();
   const [games, setGames] = useState<GameList | {} | any>({});
+  const [platform, setPlatform] = useState<string>("steam"); // default: steam
+  const [sortBy, setSortBy] = useState<"MP" | "NR" | "TS">("MP"); // default: MP
+  const handleChangePlatform = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedPlatform = event.target.value;
+    setPlatform(selectedPlatform);
+  };
+  const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSortBy: "MP" | "NR" | "TS" = event.target.value as
+      | "MP"
+      | "NR"
+      | "TS";
+    setSortBy(selectedSortBy);
+  };
   useEffect(() => {
     const getGameRanking = async () => {
-      const gameRanking10 = await gameList("steam", "MP");
+      const gameRanking10 = await gameList(platform, sortBy);
       setGames(gameRanking10.rankings);
     };
     getGameRanking();
-  }, []);
+  }, [platform, sortBy]);
 
   return (
     <div className="w-full h-[250vh] bg-[#000000] color-white">
@@ -46,6 +61,27 @@ export default function Home(): JSX.Element {
         {/** *@Todo 실제 이미지 적용 후 width, height 조정 필요 */}
         <div id="section 03" className="mt-[50px] w-[80%] mx-auto">
           <div className="">section 03: 게임 세일 항목</div>
+          <div className="w-[100%] h-[30px] flex">
+            <select
+              name="platform"
+              id="platform_dropdown"
+              className="text-black w-[30%]"
+              onChange={handleChangePlatform}
+            >
+              <option value="steam">Steam</option>
+              <option value="origin">Origin</option>
+            </select>
+            <select
+              name="sortBy"
+              id="sortBy_dropdown"
+              className="text-black w-[20%] ml-[300px]"
+              onChange={handleChangeSortBy}
+            >
+              <option value="MP">Most Played</option>
+              <option value="NR">New Release</option>
+              <option value="TS">Top Seller</option>
+            </select>
+          </div>
           <div className="w-[100%] h-[300px] mt-[50px] flex">
             {games.length > 0
               ? games
