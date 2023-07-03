@@ -12,7 +12,7 @@ import {
 
 export default function Home(): JSX.Element {
   const { images } = useStore();
-  const [games, setGames] = useState<GameRanking | {} | any>({});
+  const [games, setGames] = useState<GameRanking[]>([]);
   useEffect(() => {
     const getGameRanking = async () => {
       const gameRanking10 = await gameList("steam", "MP");
