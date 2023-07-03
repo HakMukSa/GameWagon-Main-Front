@@ -4,7 +4,7 @@ import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 import { gameList } from "@/api/game/game-list";
 import { useState, useEffect } from "react";
-import { GameRanking } from "./types/commons/gamelist";
+import { GameRanking } from "@/types/commons/gamelist";
 import {
   GameImage,
   GameImageSkeleton,
