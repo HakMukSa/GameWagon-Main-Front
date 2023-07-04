@@ -1,8 +1,106 @@
+"use client";
+import { gameList100 } from "@/api/game/games-game-list";
+import { useState, useEffect } from "react";
+import { GameRanking, SortBy } from "@/types/commons/gamelist";
+import useStore from "@/main/store";
+import {
+  GameImage,
+  GameImageSkeleton,
+} from "@/components/commons/Games/GameImage";
+import { PlatformList, SortByList } from "@/types/commons/store";
+
+/**
+ * @Todo api완성 시 나머지 추가
+ * @Todo api완성 시 페이징 추가
+ */
+
 export default function Games(): JSX.Element {
+  const { platformList, sortByList } = useStore();
+  const [games, setGames] = useState<GameRanking[]>([]);
+  const [platform, setPlatform] = useState<string>("steam"); // default: steam
+  const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
+  const [page, setPage] = useState<number>(1); // 현재 페이지
+
+  const handleChangePlatform = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedPlatform = event.target.value;
+    setPlatform(selectedPlatform);
+  };
+  const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSortBy: SortBy = event.target.value as SortBy;
+    setSortBy(selectedSortBy);
+  };
+
+  useEffect(() => {
+    const getGameRanking = async () => {
+      const gameRanking10 = await gameList100(platform, sortBy);
+      setGames(gameRanking10.rankings);
+    };
+    getGameRanking();
+  }, [platform, sortBy]);
+
   return (
     <div className="w-full h-[100%] bg-[#000000] color-white">
       <div className="w-[65%] bg-[#111827] h-[1200px] mx-auto ring-2">
-        games
+        <div className="w-[100%] h-[30px] flex">
+          <select
+            name="platform"
+            id="platform_dropdown"
+            className="text-black w-[30%]"
+            onChange={handleChangePlatform}
+          >
+            {platformList.map((i: PlatformList) => (
+              <option value={i.value} key={i.value}>
+                {i.name}
+              </option>
+            ))}
+          </select>
+          <select
+            name="sortBy"
+            id="sortBy_dropdown"
+            className="text-black w-[20%] ml-[300px]"
+            onChange={handleChangeSortBy}
+          >
+            {sortByList.map((i: SortByList) => (
+              <option value={i.value} key={i.value}>
+                {i.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="w-[100%] mt-[50px] flex">
+          {games.length > 0
+            ? games
+                .slice(0, 5)
+                .map((game: GameRanking) => (
+                  <GameImage
+                    key={game.game.name}
+                    image={game.game.images[0]}
+                    link={game.game.gameUrl}
+                    title={game.game.name}
+                  />
+                ))
+            : Array.from({ length: 5 }).map((_, index) => (
+                <GameImageSkeleton key={index} />
+              ))}
+        </div>
+        <div className="w-[100%] mt-[50px] flex">
+          {games.length > 0
+            ? games
+                .slice(5, 10)
+                .map((game: GameRanking) => (
+                  <GameImage
+                    key={game.game.name}
+                    image={game.game.images[0]}
+                    link={game.game.gameUrl}
+                    title={game.game.name}
+                  />
+                ))
+            : Array.from({ length: 5 }).map((_, index) => (
+                <GameImageSkeleton key={index} />
+              ))}
+        </div>
       </div>
     </div>
   );

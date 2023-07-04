@@ -9,11 +9,10 @@ import {
   GameImage,
   GameImageSkeleton,
 } from "@/components/commons/Games/GameImage";
-import { PlatformList, SortByList } from "./types/commons/store";
+import { PlatformList, SortByList } from "@/types/commons/store";
 
 export default function Home(): JSX.Element {
   const { images, platformList, sortByList } = useStore();
-  console.log(sortByList);
   const [games, setGames] = useState<GameRanking[]>([]);
   const [platform, setPlatform] = useState<string>("steam"); // default: steam
   const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
