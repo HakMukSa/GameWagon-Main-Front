@@ -1,10 +1,11 @@
 import gameWagon from "@/api/commons/axios";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { GameListRankings } from "@/types/commons/gamelist";
+import { SortBy } from "@/types/commons/gamelist";
 
 export async function gameList(
   platform: string,
-  sortBy: "MP" | "NR" | "TS"
+  sortBy: SortBy
 ): Promise<GameListRankings> {
   try {
     const { data }: AxiosResponse<GameListRankings> = await gameWagon().get(

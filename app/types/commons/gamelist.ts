@@ -1,7 +1,8 @@
 export type GetGameList = {
   platform: string;
-  sortBy: "MP" | "NR" | "TS"; // Most Played | New Release | Top Seller
+  sortBy: SortBy;
 };
+export type SortBy = "MP" | "NR" | "TS"; // Most Played | New Release | Top Seller
 export type GameImageProps = {
   image: string;
   link: string;
