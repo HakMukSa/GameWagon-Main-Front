@@ -2,19 +2,21 @@
 import useStore from "@/main/store";
 import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
-import { gameList } from "@/api/game/game-list";
+import { gameList10 } from "@/api/game/index-game-list";
 import { useState, useEffect } from "react";
-import { GameRanking } from "@/types/commons/gamelist";
+import { GameRanking, SortBy } from "@/types/commons/gamelist";
 import {
   GameImage,
   GameImageSkeleton,
 } from "@/components/commons/Games/GameImage";
+import { PlatformList, SortByList } from "./types/commons/store";
 
 export default function Home(): JSX.Element {
-  const { images } = useStore();
+  const { images, platformList, sortByList } = useStore();
+  console.log(sortByList);
   const [games, setGames] = useState<GameRanking[]>([]);
   const [platform, setPlatform] = useState<string>("steam"); // default: steam
-  const [sortBy, setSortBy] = useState<"MP" | "NR" | "TS">("MP"); // default: MP
+  const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
   const handleChangePlatform = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -22,16 +24,13 @@ export default function Home(): JSX.Element {
     setPlatform(selectedPlatform);
   };
   const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSortBy: "MP" | "NR" | "TS" = event.target.value as
-      | "MP"
-      | "NR"
-      | "TS";
+    const selectedSortBy: SortBy = event.target.value as SortBy;
     setSortBy(selectedSortBy);
   };
 
   useEffect(() => {
     const getGameRanking = async () => {
-      const gameRanking10 = await gameList(platform, sortBy);
+      const gameRanking10 = await gameList10(platform, sortBy);
       setGames(gameRanking10.rankings);
     };
     getGameRanking();
@@ -69,8 +68,9 @@ export default function Home(): JSX.Element {
               className="text-black w-[30%]"
               onChange={handleChangePlatform}
             >
-              <option value="steam">Steam</option>
-              <option value="origin">Origin</option>
+              {platformList.map((i: PlatformList) => (
+                <option value={i.value}>{i.name}</option>
+              ))}
             </select>
             <select
               name="sortBy"
@@ -78,9 +78,9 @@ export default function Home(): JSX.Element {
               className="text-black w-[20%] ml-[300px]"
               onChange={handleChangeSortBy}
             >
-              <option value="MP">Most Played</option>
-              <option value="NR">New Release</option>
-              <option value="TS">Top Seller</option>
+              {sortByList.map((i: SortByList) => (
+                <option value={i.value}>{i.name}</option>
+              ))}
             </select>
           </div>
           <div className="w-[100%] h-[300px] mt-[50px] flex">
