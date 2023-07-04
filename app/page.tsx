@@ -69,7 +69,9 @@ export default function Home(): JSX.Element {
               onChange={handleChangePlatform}
             >
               {platformList.map((i: PlatformList) => (
-                <option value={i.value}>{i.name}</option>
+                <option value={i.value} key={i.value}>
+                  {i.name}
+                </option>
               ))}
             </select>
             <select
@@ -79,7 +81,9 @@ export default function Home(): JSX.Element {
               onChange={handleChangeSortBy}
             >
               {sortByList.map((i: SortByList) => (
-                <option value={i.value}>{i.name}</option>
+                <option value={i.value} key={i.value}>
+                  {i.name}
+                </option>
               ))}
             </select>
           </div>
