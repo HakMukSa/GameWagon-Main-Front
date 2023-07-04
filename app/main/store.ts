@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Store } from "@/types/commons/store";
+
 const useStore = create<Store>((set) => ({
   images: [
     {
