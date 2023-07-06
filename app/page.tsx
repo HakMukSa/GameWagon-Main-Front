@@ -67,7 +67,7 @@ export default function Home(): JSX.Element {
               className="text-black w-[30%]"
               onChange={handleChangePlatform}
             >
-              {platformList.map((i: PlatformList) => (
+              {platformList.map<JSX.Element>((i: PlatformList) => (
                 <option value={i.value} key={i.value}>
                   {i.name}
                 </option>
@@ -79,7 +79,7 @@ export default function Home(): JSX.Element {
               className="text-black w-[20%] ml-[300px]"
               onChange={handleChangeSortBy}
             >
-              {sortByList.map((i: SortByList) => (
+              {sortByList.map<JSX.Element>((i: SortByList) => (
                 <option value={i.value} key={i.value}>
                   {i.name}
                 </option>

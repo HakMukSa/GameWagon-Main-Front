@@ -8,9 +8,6 @@ export async function gameList100(
   sortBy: SortBy
 ): Promise<GameListRankings> {
   try {
-    /**
-     * @Todo api 완성 시 api 교체
-     */
     const { data }: AxiosResponse<GameListRankings> = await gameWagon().get(
       `platforms/${platform}/game-list/rankings`,
       {

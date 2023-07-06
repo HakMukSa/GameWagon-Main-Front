@@ -41,8 +41,13 @@ const useStore = create<Store>((set) => ({
     },
   ],
   platformList: [
+    { value: "all", name: "ALL" },
     { value: "steam", name: "Steam" },
     { value: "origin", name: "Origin" },
+    { value: "epic", name: "Epic" },
+    { value: "ubisoft", name: "Ubisoft" },
+    { value: "gog", name: "Gog" },
+    { value: "ea", name: "EA" },
   ],
   sortByList: [
     {

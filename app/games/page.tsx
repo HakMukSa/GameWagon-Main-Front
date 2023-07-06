@@ -9,17 +9,11 @@ import {
 } from "@/components/commons/Games/GameImage";
 import { PlatformList, SortByList } from "@/types/commons/store";
 
-/**
- * @Todo api완성 시 나머지 추가
- * @Todo api완성 시 페이징 추가
- */
-
 export default function Games(): JSX.Element {
   const { platformList, sortByList } = useStore();
   const [games, setGames] = useState<GameRanking[]>([]);
   const [platform, setPlatform] = useState<string>("steam"); // default: steam
   const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
-  const [page, setPage] = useState<number>(1); // 현재 페이지
 
   const handleChangePlatform = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -50,7 +44,7 @@ export default function Games(): JSX.Element {
             className="text-black w-[30%]"
             onChange={handleChangePlatform}
           >
-            {platformList.map((i: PlatformList) => (
+            {platformList.map<JSX.Element>((i: PlatformList) => (
               <option value={i.value} key={i.value}>
                 {i.name}
               </option>
@@ -62,7 +56,7 @@ export default function Games(): JSX.Element {
             className="text-black w-[20%] ml-[300px]"
             onChange={handleChangeSortBy}
           >
-            {sortByList.map((i: SortByList) => (
+            {sortByList.map<JSX.Element>((i: SortByList) => (
               <option value={i.value} key={i.value}>
                 {i.name}
               </option>
@@ -73,7 +67,7 @@ export default function Games(): JSX.Element {
           {games.length > 0
             ? games
                 .slice(0, 5)
-                .map((game: GameRanking) => (
+                .map<JSX.Element>((game: GameRanking) => (
                   <GameImage
                     key={game.game.name}
                     image={game.game.images[0]}
@@ -89,7 +83,7 @@ export default function Games(): JSX.Element {
           {games.length > 0
             ? games
                 .slice(5, 10)
-                .map((game: GameRanking) => (
+                .map<JSX.Element>((game: GameRanking) => (
                   <GameImage
                     key={game.game.name}
                     image={game.game.images[0]}
