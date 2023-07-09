@@ -13,7 +13,6 @@ export async function gameList10(
         params: { sortBy: sortBy },
       }
     );
-    console.log(data);
     return data;
   } catch (error: any) {
     if (!axios.isAxiosError(error)) {
