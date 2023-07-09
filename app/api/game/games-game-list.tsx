@@ -1,17 +1,18 @@
 import gameWagon from "@/api/commons/axios";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
-import { GameListRankings } from "@/types/commons/gamelist";
-import { SortBy } from "@/types/commons/gamelist";
+import { SortBy, Platform, GameListRankings } from "@/types/commons/gamelist";
 
 export async function gameList100(
-  platform: string,
-  sortBy: SortBy
+  platform: Platform,
+  sortBy: SortBy,
+  perPage: number,
+  page: number
 ): Promise<GameListRankings> {
   try {
     const { data }: AxiosResponse<GameListRankings> = await gameWagon().get(
-      `platforms/${platform}/game-list/rankings`,
+      `platforms/${platform}/game-list`,
       {
-        params: { sortBy: sortBy },
+        params: { sortBy: sortBy, perPage: perPage, page: page },
       }
     );
     return data;

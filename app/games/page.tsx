@@ -1,7 +1,7 @@
 "use client";
 import { gameList100 } from "@/api/game/games-game-list";
 import { useState, useEffect } from "react";
-import { GameRanking, SortBy } from "@/types/commons/gamelist";
+import { GameRanking, Platform, SortBy } from "@/types/commons/gamelist";
 import useStore from "@/main/store";
 import {
   GameImage,
@@ -12,13 +12,15 @@ import { PlatformList, SortByList } from "@/types/commons/store";
 export default function Games(): JSX.Element {
   const { platformList, sortByList } = useStore();
   const [games, setGames] = useState<GameRanking[]>([]);
-  const [platform, setPlatform] = useState<string>("steam"); // default: steam
+  const [platform, setPlatform] = useState<Platform>("steam"); // default: steam
   const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
+  const [perPage, setPerPage] = useState<number>(10); //default: 10
+  const [page, setPage] = useState<number>(1); // default: 1
 
   const handleChangePlatform = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const selectedPlatform = event.target.value;
+    const selectedPlatform: Platform = event.target.value as Platform;
     setPlatform(selectedPlatform);
   };
   const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -28,7 +30,7 @@ export default function Games(): JSX.Element {
 
   useEffect(() => {
     const getGameRanking = async () => {
-      const gameRanking10 = await gameList100(platform, sortBy);
+      const gameRanking10 = await gameList100(platform, sortBy, perPage, page);
       setGames(gameRanking10.rankings);
     };
     getGameRanking();

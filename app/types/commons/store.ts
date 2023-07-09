@@ -1,4 +1,4 @@
-import { SortBy } from "@/types/commons/gamelist";
+import { SortBy, Platform } from "@/types/commons/gamelist";
 export type Store = {
   images: Image[];
   youtubeMeta: YoutubeMeta[];
@@ -18,7 +18,7 @@ export type YoutubeMeta = {
   tags: string[];
 };
 export type PlatformList = {
-  value: string;
+  value: Platform;
   name: string;
 };
 export type SortByList = {

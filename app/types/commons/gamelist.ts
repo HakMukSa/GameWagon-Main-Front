@@ -1,7 +1,14 @@
-export type GetGameList = {
-  platform: string;
+export type IndexGameList = {
+  platform: Platform;
   sortBy: SortBy;
 };
+export type GamesGameList = {
+  platform: Platform;
+  sortBy: SortBy;
+  perPage: number;
+  page: number;
+};
+export type Platform = "steam" | "epic" | "ubisoft" | "origin" | "gog" | "ea";
 export type SortBy = "MP" | "NR" | "TS"; // Most Played | New Release | Top Seller
 export type GameImageProps = {
   image: string;
@@ -22,7 +29,7 @@ export type Game = {
   extraData: {
     languages: [
       {
-        language: "string";
+        language: string;
         subtitle: boolean;
         dubbing: boolean;
         userPatch: boolean;

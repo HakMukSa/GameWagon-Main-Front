@@ -4,7 +4,7 @@ import Slick from "@/components/commons/Slick";
 import Youtube from "@/components/index/Youtube";
 import { gameList10 } from "@/api/game/index-game-list";
 import { useState, useEffect } from "react";
-import { GameRanking, SortBy } from "@/types/commons/gamelist";
+import { GameRanking, SortBy, Platform } from "@/types/commons/gamelist";
 import {
   GameImage,
   GameImageSkeleton,
@@ -14,12 +14,12 @@ import { PlatformList, SortByList } from "@/types/commons/store";
 export default function Home(): JSX.Element {
   const { images, platformList, sortByList } = useStore();
   const [games, setGames] = useState<GameRanking[]>([]);
-  const [platform, setPlatform] = useState<string>("steam"); // default: steam
+  const [platform, setPlatform] = useState<Platform>("steam"); // default: steam
   const [sortBy, setSortBy] = useState<SortBy>("MP"); // default: MP
   const handleChangePlatform = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const selectedPlatform = event.target.value;
+    const selectedPlatform: Platform = event.target.value as Platform;
     setPlatform(selectedPlatform);
   };
   const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
