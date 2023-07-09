@@ -40,6 +40,28 @@ const useStore = create<Store>((set) => ({
       tags: ["추천게임동영상", "블루아카이브", "추천동영상"],
     },
   ],
+  platformList: [
+    { value: "steam", name: "Steam" },
+    { value: "origin", name: "Origin" },
+    { value: "epic", name: "Epic" },
+    { value: "ubisoft", name: "Ubisoft" },
+    { value: "gog", name: "Gog" },
+    { value: "ea", name: "EA" },
+  ],
+  sortByList: [
+    {
+      value: "MP",
+      name: "Most Played",
+    },
+    {
+      value: "NR",
+      name: "New Release",
+    },
+    {
+      value: "TS",
+      name: "Top Seller",
+    },
+  ],
 }));
 
 export default useStore;
